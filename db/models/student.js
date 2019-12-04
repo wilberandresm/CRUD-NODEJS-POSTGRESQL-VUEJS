@@ -13,4 +13,6 @@ const estudiante=sequelize.define("estudiante",{
 
 });
 
-module.exports=estudiante;
+estudiante.sync({ force:false});
+
+module.exports={estudiante};
