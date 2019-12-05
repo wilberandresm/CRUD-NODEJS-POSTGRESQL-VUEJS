@@ -9,6 +9,8 @@ router.get('/',(req,res)=>res.send('welcome'))
 router.post('/posts',controllers.createStudent)
 /*mostrar todos los datos*/
 router.get('/posts',controllers.getAllStudents)
-
+/*encontrar estudiante por id*/
 router.get('/posts/:id',controllers.getSudentById)
+
+router.put('/posts/:id',controllers.UpdateStudent)
 module.exports=router;

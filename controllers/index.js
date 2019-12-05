@@ -27,7 +27,7 @@ const getAllStudents =async(req,res)=>{
         })
     }
 }
-
+/*conseguir uno por id*/
 const getSudentById =async(req,res)=>{
     try{
         /*{FirstName:"Jane",LastName:"doe"}*/
@@ -45,12 +45,34 @@ const getSudentById =async(req,res)=>{
         })
     }
 }
+/*actualizar un estudiante*/
+const UpdateStudent =async(req,res)=>{
+    try{
+        /*{FirstName:"Jane",LastName:"doe"}*/
+        const{id}=req.params;
+        const [updated]=await models.estudiante.update(req.body,{
+            where:{id:id}
+        });
+        if(updated){
+            const UpdateStudent =await models.estudiante.findOne({
+                where:{id:id}
+            });
+            return res.status(200).json({student:UpdateStudent})
+        }throw new Error('estudiante no encontrado');
+        
+    }catch(e){
+        return res.status(500).json({
+            e:e.message
+        })
+    }
+}
 
 
 
 module.exports={
     createStudent,
     getAllStudents,
-    getSudentById
+    getSudentById,
+    UpdateStudent
     
 }
