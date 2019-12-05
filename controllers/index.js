@@ -67,12 +67,31 @@ const UpdateStudent =async(req,res)=>{
     }
 }
 
+const deleteStudent =async(req,res)=>{
+    try{
+        /*{FirstName:"Jane",LastName:"doe"}*/
+        const{id}=req.params;
+        const deleted =await models.estudiante.destroy({
+            where:{id:id}
+        });
+        if(deleted){
+            return res.status(204).send("borrado");
+        }
+        throw new Error("Estudiante no encontrado")
+    }catch(e){
+        return res.status(500).json({
+            e:e.message
+        })
+    }
+}
+
 
 
 module.exports={
     createStudent,
     getAllStudents,
     getSudentById,
-    UpdateStudent
+    UpdateStudent,
+    deleteStudent
     
 }
