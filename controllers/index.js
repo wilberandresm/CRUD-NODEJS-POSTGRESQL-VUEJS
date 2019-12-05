@@ -14,6 +14,22 @@ const createStudent =async(req,res)=>{
     }
 }
 
+const getAllPosts =async(req,res)=>{
+    try{
+        /*{FirstName:"Jane",LastName:"doe"}*/
+        const student=await models.estudiante.findAll();
+        return res.status(201).json({
+            student,
+        });
+    }catch(e){
+        return res.status(500).json({
+            e:e.message
+        })
+    }
+}
+
 module.exports={
     createStudent,
+    getAllPosts
+    
 }
