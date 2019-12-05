@@ -1,5 +1,5 @@
 const  models =require('../db/models/student')
-
+/*creación de estudiantes*/
 const createStudent =async(req,res)=>{
     try{
         /*{FirstName:"Jane",LastName:"doe"}*/
@@ -13,8 +13,8 @@ const createStudent =async(req,res)=>{
         })
     }
 }
-
-const getAllPosts =async(req,res)=>{
+/*mostrar todos*/
+const getAllStudents =async(req,res)=>{
     try{
         /*{FirstName:"Jane",LastName:"doe"}*/
         const student=await models.estudiante.findAll();
@@ -28,8 +28,29 @@ const getAllPosts =async(req,res)=>{
     }
 }
 
+const getSudentById =async(req,res)=>{
+    try{
+        /*{FirstName:"Jane",LastName:"doe"}*/
+        const{id}=req.params;
+        const student=await models.estudiante.findOne({
+            where:{id:id}
+        });
+        if(student){
+            return res.status(200).json({student})
+        }
+        return res.status(404).send('Estudiante con ese id especifico no existe');
+    }catch(e){
+        return res.status(500).json({
+            e:e.message
+        })
+    }
+}
+
+
+
 module.exports={
     createStudent,
-    getAllPosts
+    getAllStudents,
+    getSudentById
     
 }
