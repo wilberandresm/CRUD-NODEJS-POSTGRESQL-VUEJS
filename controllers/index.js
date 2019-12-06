@@ -66,21 +66,23 @@ const UpdateStudent =async(req,res)=>{
         })
     }
 }
-
+/*eliminar estudiante*/
 const deleteStudent =async(req,res)=>{
     try{
         /*{FirstName:"Jane",LastName:"doe"}*/
         const{id}=req.params;
         const deleted =await models.estudiante.destroy({
-            where:{id:id}
+            where:{id}
         });
         if(deleted){
-            return res.status(204).send("borrado");
+            return res.json({
+                message:"Usuario eliminado"
+            })
         }
         throw new Error("Estudiante no encontrado")
     }catch(e){
         return res.status(500).json({
-            e:e.message
+            e
         })
     }
 }
